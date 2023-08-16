@@ -1,7 +1,7 @@
 const contacts = require("../models/contacts");
 const { HttpError, ctrlWrapper } = require("../helpers");
 const Joi = require("joi");
-
+// привіт
 const addShema = Joi.object({
   name: Joi.string().required(),
   email: Joi.string().email().required(),
