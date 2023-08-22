@@ -1,7 +1,10 @@
 const express = require("express");
 const logger = require("morgan");
 const cors = require("cors");
+<<<<<<< Updated upstream
 require("dotenv").config()
+=======
+>>>>>>> Stashed changes
 
 const contactsRouter = require("./routes/api/contacts");
 
@@ -21,7 +24,23 @@ app.use((req, res) => {
 
 app.use((err, req, res, next) => {
   const { status = 500, message = "Server error" } = err;
+<<<<<<< Updated upstream
   res.status(status).json({message,});
 });
 
+=======
+  res.status(status).json({ message });
+});
+
+const mongoose = require("mongoose");
+
+const DB_HOST =
+  "mongodb+srv://igor:oj2sGOnjqjxvzdZb@cluster0.q4njwwu.mongodb.net/Contacts_reader?retryWrites=true&w=majority";
+mongoose.set("strictQuery", true);
+mongoose
+  .connect(DB_HOST)
+  .then(() => console.log("Connected to Mongo"))
+  .catch((error) => console.log(error.message));
+
+>>>>>>> Stashed changes
 module.exports = app;
