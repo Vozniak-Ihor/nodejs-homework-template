@@ -1,10 +1,7 @@
 const express = require("express");
 const logger = require("morgan");
 const cors = require("cors");
-<<<<<<< Updated upstream
 require("dotenv").config()
-=======
->>>>>>> Stashed changes
 
 const contactsRouter = require("./routes/api/contacts");
 
@@ -24,11 +21,6 @@ app.use((req, res) => {
 
 app.use((err, req, res, next) => {
   const { status = 500, message = "Server error" } = err;
-<<<<<<< Updated upstream
-  res.status(status).json({message,});
-});
-
-=======
   res.status(status).json({ message });
 });
 
@@ -42,5 +34,4 @@ mongoose
   .then(() => console.log("Connected to Mongo"))
   .catch((error) => console.log(error.message));
 
->>>>>>> Stashed changes
 module.exports = app;
