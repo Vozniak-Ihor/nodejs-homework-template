@@ -65,14 +65,14 @@ const logout = async (req, res) => {
 };
 
 const updateStatusUser = async (req, res) => {
-  const { _id } = req.user;
+  const { _id ,email, subscription} = req.user;
   const result = await User.findByIdAndUpdate(_id, req.body, {
     new: true,
   });
   if (!result) {
     throw HttpError(404, "Not found");
   }
-  res.status(200).json(result);
+  res.status(200).json({ email, subscription });
 };
 
 const getAvatar = async (req, res) => {
