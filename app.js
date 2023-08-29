@@ -24,14 +24,4 @@ app.use((err, req, res, next) => {
   res.status(status).json({ message });
 });
 
-const mongoose = require("mongoose");
-
-const DB_HOST =
-  "mongodb+srv://igor:oj2sGOnjqjxvzdZb@cluster0.q4njwwu.mongodb.net/Contacts_reader?retryWrites=true&w=majority";
-mongoose.set("strictQuery", true);
-mongoose
-  .connect(DB_HOST)
-  .then(() => console.log("Connected to Mongo"))
-  .catch((error) => console.log(error.message));
-
 module.exports = app;

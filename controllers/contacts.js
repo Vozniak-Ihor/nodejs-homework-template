@@ -31,9 +31,7 @@ const removeContact = async (req, res) => {
 };
 
 const updateContact = async (req, res) => {
-  if (Object.keys(req.body).length === 0) {
-    throw HttpError(400, "missing fields");
-  }
+  
   const update = await Contact.findByIdAndUpdate(
     { _id: req.params.contactId },
     req.body,
@@ -47,8 +45,8 @@ const updateContact = async (req, res) => {
 
 const updateStatusContact = async (req, res) => {
   const { contactId } = req.params;
-  const result = await Contact.findByIdAndUpdate({_id: contactId}, req.body, {
-    new: true
+  const result = await Contact.findByIdAndUpdate({ _id: contactId }, req.body, {
+    new: true,
   });
   if (!result) {
     throw HttpError(404, "Not found");
