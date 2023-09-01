@@ -6,6 +6,7 @@ const { SECRET_KEY } = process.env;
 const gravatar = require("gravatar");
 const path = require("path");
 const Jimp = require("jimp");
+const fs = require("fs").promises;
 
 const avatarDir = path.join(__dirname, "../", "public", "avatars");
 
@@ -65,7 +66,7 @@ const logout = async (req, res) => {
 };
 
 const updateStatusUser = async (req, res) => {
-  const { _id ,email, subscription} = req.user;
+  const { _id, email, subscription } = req.user;
   const result = await User.findByIdAndUpdate(_id, req.body, {
     new: true,
   });
@@ -88,8 +89,8 @@ const getAvatar = async (req, res) => {
 
     const avatarURL = path.join("avatars", fileName);
     await User.findByIdAndUpdate(_id, { avatarURL });
-
-    res.status(200).json({ avatarURL: resultUpload });
+    await fs.unlink(tempUpload);
+    res.status(200).json({ avatarURL });
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "An error occurred" });

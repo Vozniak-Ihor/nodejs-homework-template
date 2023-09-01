@@ -13,7 +13,7 @@ router.post("/login", validateSchema(schemas.loginSchema), ctrl.login);
 
 router.post("/logout", authenticate, ctrl.logout);
 
-router.patch("/avarats", authenticate, upload.single("avatar"), ctrl.getAvatar);
+router.patch("/avatars", authenticate, upload.single("avatar"), ctrl.getAvatar);
 
 router.patch(
   "/subscription",
