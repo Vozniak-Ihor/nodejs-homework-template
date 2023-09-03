@@ -31,7 +31,9 @@ const register = async (req, res) => {
     avatarURL,
   });
 
-  res.status(201).json({ name: newUser.name, email: newUser.email });
+  res.status(201).json({
+    user: { email: newUser.email, subscription: newUser.subscription },
+  });
 };
 
 const login = async (req, res) => {
@@ -49,9 +51,12 @@ const login = async (req, res) => {
     id: user._id,
   };
 
-  const token = jwt.sign(payload, SECRET_KEY, { expiresIn: "23h" });
-  await User.findByIdAndUpdate(user._id, { token });
-  res.json({ token });
+  const token = jwt.sign(payload, SECRET_KEY);
+  const resart = await User.findByIdAndUpdate(user._id, { token });
+  res.json({
+    token,
+    user: { email: resart.email, subscription: resart.subscription },
+  });
 };
 
 const getCurrent = async (req, res) => {
@@ -62,18 +67,18 @@ const getCurrent = async (req, res) => {
 const logout = async (req, res) => {
   const { _id } = req.user;
   await User.findByIdAndUpdate(_id, { token: "" });
-  res.status(204);
+  res.status(204).json({});
 };
 
 const updateStatusUser = async (req, res) => {
-  const { _id, email, subscription } = req.user;
+  const { _id } = req.user;
   const result = await User.findByIdAndUpdate(_id, req.body, {
     new: true,
   });
   if (!result) {
     throw HttpError(404, "Not found");
   }
-  res.status(200).json({ email, subscription });
+  res.status(200).json(result);
 };
 
 const getAvatar = async (req, res) => {
